@@ -1,8 +1,6 @@
 name 'zstd'
 org 'amylum'
 
-licenses 'icu4c/COPYING'
-
 configure_flags(
   prefix: '/usr',
 )
@@ -10,9 +8,15 @@ configure_flags(
 harden
 
 build do
-  configure
-  make
-  install 'PREFIX' => '/usr'
+  run 'rm -rf icu4j tools vendor'
+  run 'mv icu4c/source/* ./'
+  run 'mv icu4c/LICENSE ./'
+  flags = {
+    'CXXFLAGS' => '-specs /usr/lib/musl/lib/musl-gcc.specs -I/usr/include/c++/8.1.1/ -I/usr/include/c++/8.1.1/x86_64-pc-linux-gnu/'
+  }
+  configure flags
+  make flags
+  install flags
 end
 
 test do
