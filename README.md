@@ -1,7 +1,7 @@
 icu
 ==========
 
-[![Build Status](https://img.shields.io/circleci/project/amylum/icu/master.svg)](https://circleci.com/gh/amylum/icu)
+[![Build Status](https://img.shields.io/travis/com/amylum/icu.svg)](https://travis-ci.com/amylum/icu)
 [![GitHub release](https://img.shields.io/github/release/amylum/icu.svg)](https://github.com/amylum/icu/releases)
 [![BSD Licensed](https://img.shields.io/badge/license-BSD-green.svg)](https://tldrlegal.com/license/bsd-3-clause-license-(revised))
 
