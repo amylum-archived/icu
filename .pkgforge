@@ -1,6 +1,12 @@
 name 'zstd'
 org 'amylum'
 
+source(
+  type: 'tar',
+  url: 'https://ssl.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz',
+  checksum: '3dd9868d666350dda66a6e305eecde9d479fb70b30d5b55d78a1deffb97d5aa3'
+)
+
 configure_flags(
   prefix: '/usr',
 )
@@ -8,15 +14,13 @@ configure_flags(
 harden
 
 build do
-  run 'rm -rf icu4j tools vendor'
-  run 'mv icu4c/source/* ./'
-  run 'mv icu4c/LICENSE ./'
   flags = {
+    'CC' => 'musl-gcc',
     'CXXFLAGS' => '-specs /usr/lib/musl/lib/musl-gcc.specs -I/usr/include/c++/8.1.1/ -I/usr/include/c++/8.1.1/x86_64-pc-linux-gnu/'
   }
-  configure flags
-  make flags
-  install flags
+  run "cd source && ./configure #{configure_flag_strings.join(' ')}", flags
+  run 'cd source && make', flags
+  run "cd source && make DESTDIR=#{releasedir} install", flags
 end
 
 test do
